@@ -13,4 +13,8 @@ class UserRepositoryImpl extends UserRepository {
     sql"SELECT * FROM users".query[User].to[List]
   }
 
+  override def getUserById(id: Long): ConnectionIO[Option[User]] = {
+    sql"SELECT * FROM users WHERE id = $id".query[User].option
+  }
+
 }

@@ -21,4 +21,15 @@ class UserServiceImpl(userRepository: UserRepository, dbTransactor: Transactor[I
       _ <- IO(logger.info(s"Retrieved ${users.size} users."))
     } yield users
   }
+
+  override def getUserById(id: Long): IO[Option[User]] = {
+    for {
+      _ <- IO(logger.info(s"Fetching user with ID $id..."))
+      user <- userRepository.getUserById(id).transact(dbTransactor)
+      _ <- user match {
+        case Some(_) => IO(logger.info(s"Retrieved user with ID $id."))
+        case None => IO(logger.info(s"User with ID $id not found."))
+      }
+    } yield user
+  }
 }

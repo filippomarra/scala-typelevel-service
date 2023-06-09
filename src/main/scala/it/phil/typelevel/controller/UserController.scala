@@ -22,6 +22,15 @@ object UserController {
           response <- Ok(users)
         } yield response
       
+      case GET -> Root / "users" / LongVar(id) =>
+        for {
+          user <- userService.getUserById(id)
+          response <- user match {
+            case Some(u) => Ok(u)
+            case None => NotFound()
+          }
+        } yield response
+    
     }
   }
 
