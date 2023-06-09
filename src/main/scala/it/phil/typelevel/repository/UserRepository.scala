@@ -1,5 +1,9 @@
 package it.phil.typelevel.repository
 
-trait UserRepository {
+import doobie.free.connection.ConnectionIO
 
+import it.phil.typelevel.model.User
+
+trait UserRepository {
+  def getAll(): ConnectionIO[List[User]]
 }

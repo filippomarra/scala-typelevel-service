@@ -14,7 +14,13 @@ object UserController {
     import dsl._
     HttpRoutes.of[IO] {
 
-      case GET -> Root / "health" => Ok()
+      case GET -> Root / "health" => Ok("UserController is ready!")
+
+      case GET -> Root / "users" => 
+        for {
+          users <- userService.getAll()
+          response <- Ok(users)
+        } yield response
       
     }
   }
