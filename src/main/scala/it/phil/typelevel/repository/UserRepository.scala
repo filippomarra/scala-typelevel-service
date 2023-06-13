@@ -6,5 +6,6 @@ import it.phil.typelevel.model.User
 
 trait UserRepository {
   def getAll(): ConnectionIO[List[User]]
-  def getUserById(id: Long): ConnectionIO[Option[User]]
+  def getById(id: Long): ConnectionIO[Option[User]]
+  def create(user: User): ConnectionIO[Int]
 }

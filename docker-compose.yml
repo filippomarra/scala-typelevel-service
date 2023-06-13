@@ -1,16 +1,23 @@
 version: "3.7"
 
 services:
-  postgres_db:
+  sbt-server:
+    container_name: sbt-server
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.app
+    image: sbt-server
+    ports:
+      - "8080:8080"
+  postgres-db:
+    container_name: postgres-db
     build:
       context: ./docker/db/
-      dockerfile: ./Dockerfile
-    restart: always
+      dockerfile: ./Dockerfile.db
     environment:
-      POSTGRES_DB: ${DBNAME}
-      POSTGRES_USER: ${DBUSER}
-      POSTGRES_PASSWORD: ${DBPASSWORD}
+      POSTGRES_DB: typelevel
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    image: postgres-db
     ports:
       - "5432:5432"
-    volumes:
-      - ./.docker-compose-data/postgres_data:/var/lib/postgresql/data

@@ -7,7 +7,7 @@ import org.http4s.circe._
 import org.http4s.{EntityDecoder, EntityEncoder}
 
 case class User(
-  id: Long, 
+  id: Option[Long], 
   name: String, 
   surname: String, 
   email: Option[String]

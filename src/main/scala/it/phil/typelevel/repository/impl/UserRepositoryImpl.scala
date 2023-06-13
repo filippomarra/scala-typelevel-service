@@ -13,8 +13,15 @@ class UserRepositoryImpl extends UserRepository {
     sql"SELECT * FROM users".query[User].to[List]
   }
 
-  override def getUserById(id: Long): ConnectionIO[Option[User]] = {
+  override def getById(id: Long): ConnectionIO[Option[User]] = {
     sql"SELECT * FROM users WHERE id = $id".query[User].option
+  }
+
+  override def create(user: User): ConnectionIO[Int] = {
+    sql"""
+      INSERT INTO users(name, surname, email)
+      VALUES (${user.name}, ${user.surname}, ${user.email})
+    """.update.run
   }
 
 }

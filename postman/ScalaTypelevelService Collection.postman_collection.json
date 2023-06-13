@@ -10,6 +10,341 @@
 			"name": "Users APIs",
 			"item": [
 				{
+					"name": "Get All Users",
+					"item": [
+						{
+							"name": "No params",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"const jsonData = pm.response.json();",
+											"pm.test(\"Response body is an array\", function () {",
+											"    pm.expect(jsonData).to.be.an(\"array\");",
+											"});",
+											"",
+											"pm.test(\"User object has id property\", function () {",
+											"    pm.expect(jsonData[0]).to.have.property(\"id\");",
+											"});",
+											"",
+											"pm.test(\"User object has name property\", function () {",
+											"    pm.expect(jsonData[0]).to.have.property(\"name\");",
+											"});",
+											"",
+											"pm.test(\"User object has surname property\", function () {",
+											"    pm.expect(jsonData[0]).to.have.property(\"surname\");",
+											"});",
+											"",
+											"pm.test(\"User object has email property\", function () {",
+											"    pm.expect(jsonData[0]).to.have.property(\"email\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}users",
+									"host": [
+										"{{base_url}}users"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get User By Id",
+					"item": [
+						{
+							"name": "Id not valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}users/prova",
+									"host": [
+										"{{base_url}}users"
+									],
+									"path": [
+										"prova"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "Id not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"const jsonData = pm.response.json();",
+											"pm.test(\"Response body is an object\", function () {",
+											"    pm.expect(jsonData).to.be.an(\"object\");",
+											"});",
+											"",
+											"pm.test(\"Response body has message property\", function () {",
+											"    pm.expect(jsonData).to.have.property(\"message\");",
+											"});",
+											"",
+											"pm.test('Message property has value \"User not found.\"', function () {",
+											"    pm.expect(jsonData.message).to.be.equal(\"User not found.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}users/0",
+									"host": [
+										"{{base_url}}users"
+									],
+									"path": [
+										"0"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "Id valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"const jsonData = pm.response.json();",
+											"pm.test(\"Response body is an object\", function () {",
+											"    pm.expect(jsonData).to.be.an(\"object\");",
+											"});",
+											"",
+											"pm.test(\"User object has id property\", function () {",
+											"    pm.expect(jsonData).to.have.property(\"id\");",
+											"});",
+											"",
+											"pm.test(\"User object has name property\", function () {",
+											"    pm.expect(jsonData).to.have.property(\"name\");",
+											"});",
+											"",
+											"pm.test(\"User object has surname property\", function () {",
+											"    pm.expect(jsonData).to.have.property(\"surname\");",
+											"});",
+											"",
+											"pm.test(\"User object has email property\", function () {",
+											"    pm.expect(jsonData).to.have.property(\"email\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}users/1",
+									"host": [
+										"{{base_url}}users"
+									],
+									"path": [
+										"1"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create User",
+					"item": [
+						{
+							"name": "Empty body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}users",
+									"host": [
+										"{{base_url}}users"
+									]
+								},
+								"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+							},
+							"response": []
+						},
+						{
+							"name": "User without email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"const jsonData = pm.response.json();",
+											"pm.test(\"Response body is an object\", function () {",
+											"    pm.expect(jsonData).to.be.an(\"object\");",
+											"});",
+											"",
+											"pm.test(\"Response body has message property\", function () {",
+											"    pm.expect(jsonData).to.have.property(\"message\");",
+											"});",
+											"",
+											"pm.test('Message property has value \"User successfully created.\"', function () {",
+											"    pm.expect(jsonData.message).to.be.equal(\"User successfully created.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"John\",\n    \"surname\": \"Doe\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}users",
+									"host": [
+										"{{base_url}}users"
+									]
+								},
+								"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+							},
+							"response": []
+						},
+						{
+							"name": "User with email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"const jsonData = pm.response.json();",
+											"pm.test(\"Response body is an object\", function () {",
+											"    pm.expect(jsonData).to.be.an(\"object\");",
+											"});",
+											"",
+											"pm.test(\"Response body has message property\", function () {",
+											"    pm.expect(jsonData).to.have.property(\"message\");",
+											"});",
+											"",
+											"pm.test('Message property has value \"User successfully created.\"', function () {",
+											"    pm.expect(jsonData.message).to.be.equal(\"User successfully created.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Santa\",\n    \"surname\": \"Claus\",\n    \"email\": \"santa@email.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}users",
+									"host": [
+										"{{base_url}}users"
+									]
+								},
+								"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Health",
 					"event": [
 						{
@@ -20,9 +355,19 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test('Response body is \"UserController is ready!\"', function () {",
-									"    pm.response.to.have.body('\"UserController is ready!\"');",
-									"});"
+									"const jsonData = pm.response.json();",
+									"pm.test(\"Response body is an object\", function () {",
+									"    pm.expect(jsonData).to.be.an(\"object\");",
+									"});",
+									"",
+									"pm.test(\"Response body has message property\", function () {",
+									"    pm.expect(jsonData).to.have.property(\"message\");",
+									"});",
+									"",
+									"pm.test('Message property has value \"UserController is ready!\"', function () {",
+									"    pm.expect(jsonData.message).to.be.equal(\"UserController is ready!\");",
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -37,131 +382,6 @@
 								"{{base_url}}health"
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Content-Type is application/json\", function () {",
-									"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
-									"})",
-									"",
-									"const jsonData = pm.response.json();",
-									"pm.test(\"Response body is an array\", function () {",
-									"    pm.expect(jsonData).to.be.an(\"array\");",
-									"});",
-									"",
-									"pm.test(\"User object has id property\", function () {",
-									"    pm.expect(jsonData[0]).to.have.property(\"id\");",
-									"});",
-									"",
-									"pm.test(\"User object has name property\", function () {",
-									"    pm.expect(jsonData[0]).to.have.property(\"name\");",
-									"});",
-									"",
-									"pm.test(\"User object has surname property\", function () {",
-									"    pm.expect(jsonData[0]).to.have.property(\"surname\");",
-									"});",
-									"",
-									"pm.test(\"User object has email property\", function () {",
-									"    pm.expect(jsonData[0]).to.have.property(\"email\");",
-									"});",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}users",
-							"host": [
-								"{{base_url}}users"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "Get User",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Content-Type is application/json\", function () {",
-									"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
-									"})",
-									"",
-									"const jsonData = pm.response.json();",
-									"pm.test(\"Response body is an object\", function () {",
-									"    pm.expect(jsonData).to.be.an(\"object\");",
-									"});",
-									"",
-									"pm.test(\"User object has id property\", function () {",
-									"    pm.expect(jsonData).to.have.property(\"id\");",
-									"});",
-									"",
-									"pm.test(\"User object has name property\", function () {",
-									"    pm.expect(jsonData).to.have.property(\"name\");",
-									"});",
-									"",
-									"pm.test(\"User object has surname property\", function () {",
-									"    pm.expect(jsonData).to.have.property(\"surname\");",
-									"});",
-									"",
-									"pm.test(\"User object has email property\", function () {",
-									"    pm.expect(jsonData).to.have.property(\"email\");",
-									"});",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}users/1",
-							"host": [
-								"{{base_url}}users"
-							],
-							"path": [
-								"1"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 					},
 					"response": []
 				}
